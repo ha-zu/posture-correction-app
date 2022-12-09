@@ -1,2 +1,2 @@
-# oni-tatehuse
-姿勢がきちんとしてないとカウントされない腕立てアプリ
+# Posture Correction App
+正しい姿勢でトレーニングするアプリ
