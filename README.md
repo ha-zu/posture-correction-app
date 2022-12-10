@@ -2,17 +2,20 @@
 正しい姿勢でトレーニングするアプリ
 
 - [Posture Correction App](#posture-correction-app)
-	- [Getting Start](#getting-start)
+	- [Getting Started](#getting-started)
 	- [Image](#image)
 	- [Reference](#reference)
 
-## Getting Start
+## Getting Started
 
-- Version
+- Clone
 ```
-python -V
-> Python 3.10.5
+git clone https://github.com/ha-zu/posture-correction-app.git
 ```
+```
+cd posture-correction-app
+```
+
 - Option use venv
 
 ```
@@ -22,6 +25,11 @@ python -m venv .env
 source .env/bin/activate
 ```
 
+- Version
+```
+python -V
+> Python 3.10.5
+```
 - Install pkg
 ```
 // cat requirements.txt
