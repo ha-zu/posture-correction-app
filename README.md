@@ -12,6 +12,9 @@
 ```
 git clone https://github.com/ha-zu/posture-correction-app.git
 ```
+```
+cd posture-correction-app
+```
 
 - Option use venv
 
