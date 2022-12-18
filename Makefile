@@ -16,7 +16,7 @@ help: ## Show help
 	@echo "usage: make <target>"
 	@echo ""
 	@echo "target:"
-	@grep -E '^[a-zA-Z0123456789]+:.?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.?## "}; {printf "\%-10s\%s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0123456789]+:.?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.?## "}; {printf "\033[36m%-25s\033[0m%s\n", $$1, $$2}'
 	@echo ""
 
 # =========================================
@@ -28,7 +28,7 @@ black: ## Run black
 flake8: ## Run flake8
 	@git ls-files '*.py' | xargs $(PYTHON) -m flake8 --exit-zero
 
-isort: ## RUN isort
+isort: ## Run isort
 	@git ls-files '*.py' | xargs $(PYTHON) -m isort
 
 lint-all: ## Run all linters
@@ -44,5 +44,5 @@ run: ## Run main.py
 setup: ## Install requirements.txt
 	pip install -r requirements.txt
 
-clean: ## Clean files
+clean: ## Clean __pycache__
 	@find  $(SRC_DIR)/ -name '__pycache__' -exec rm -rf {} \;
