@@ -16,7 +16,7 @@ help: ## Show help
 	@echo "usage: make <target>"
 	@echo ""
 	@echo "target:"
-	@grep -E '^[a-zA-Z0123456789]+:.?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.?## "}; {printf "\033[36m%-25s\033[0m%s\n", $$1, $$2}'
+	@grep -E '^[a-zA-Z0123456789-]+:.?##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.?## "}; {printf "\033[36m%-25s\033[0m%s\n", $$1, $$2}'
 	@echo ""
 
 # =========================================
