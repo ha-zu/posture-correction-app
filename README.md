@@ -32,9 +32,13 @@ python -V
 ```
 - Install pkg
 ```
-// cat requirements.txt
-pip install -r requirements.txt
+make setup
 ````
+
+- Makefile help output options.
+```
+make help
+```
 
 - exit venv
 ```
