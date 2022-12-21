@@ -203,8 +203,9 @@ def sample_pose():
 def main():
     """Detection posture"""
     # Select Training screen
-
+        # ToDo
     # Start Training
+        # ToDo UI. Select training lists.
     sample_pose()
 
 
