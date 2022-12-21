@@ -11,27 +11,7 @@ from config import constant_list as const
 from training import instructions as ins
 
 
-def putTextR(image, landmark_x, landmark_y):
-    # Get frame width and height
-    image_height, image_width, channels = image.shape
-    x = int(landmark_x * image_width)
-    y = int(landmark_y * image_height)
-    # ランドマーク情報 [x, y, z]のテキストを作成する
-    text = f"[x:{round(landmark_x, 3)}, y:{round(landmark_y, 3)}]"
-    # imageにテキストを埋め込む
-    cv.putText(
-        image,
-        text,
-        (x - 10, y - 10),
-        cv.FONT_HERSHEY_SIMPLEX,
-        1,
-        (0, 0, 255),
-        2,
-        cv.LINE_AA,
-    )
-
-
-def putTextL(image, landmark_x, landmark_y):
+def putText(image, landmark_x, landmark_y):
     image_height, image_width, channels = image.shape
     x = int(landmark_x * image_width)
     y = int(landmark_y * image_height)
@@ -100,7 +80,7 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putTextR(image, nose_x, nose_y)
+                putText(image, nose_x, nose_y)
                 print("Nose:", nose_x, nose_y)
 
                 # Sholders
@@ -130,8 +110,8 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putTextL(image, left_sholder_x, left_sholder_y)
-                putTextR(image, right_sholder_x, right_sholder_y)
+                putText(image, left_sholder_x, left_sholder_y)
+                putText(image, right_sholder_x, right_sholder_y)
                 print(
                     "Sholder=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
                         left_sholder_x,
@@ -166,8 +146,8 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putTextL(image, left_hip_x, left_hip_y)
-                putTextR(image, right_hip_x, right_hip_y)
+                putText(image, left_hip_x, left_hip_y)
+                putText(image, right_hip_x, right_hip_y)
                 print(
                     "Hip=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
                         left_hip_x, left_hip_y, right_hip_x, right_hip_y
@@ -199,8 +179,8 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putTextL(image, left_knee_x, left_knee_y)
-                putTextR(image, right_knee_x, right_knee_y)
+                putText(image, left_knee_x, left_knee_y)
+                putText(image, right_knee_x, right_knee_y)
                 print(
                     "Hip=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
                         left_knee_x, left_knee_y, right_knee_x, right_knee_y
