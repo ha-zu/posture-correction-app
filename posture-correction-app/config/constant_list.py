@@ -1,4 +1,10 @@
 """
+Detection posture settings
+"""
+VIDEO_FRAME_WIDTH = 1280
+VIDEO_FRAME_HEIGHT = 720
+
+"""
 Voice settings
 """
 # Voice List Number 18=ja_JP in Mac.
