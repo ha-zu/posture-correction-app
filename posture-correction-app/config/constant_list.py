@@ -5,6 +5,14 @@ VIDEO_FRAME_WIDTH = 1280
 VIDEO_FRAME_HEIGHT = 720
 
 """
+Detected connect line and point color
+"""
+COLOR_YELLOW = (252, 255, 41)
+COLOR_GREEN = (36, 255, 49)
+COLOR_BLUE = (8, 36, 247)
+COLOR_RED = (255, 51, 51)
+
+"""
 Voice settings
 """
 # Voice List Number 18=ja_JP in Mac.

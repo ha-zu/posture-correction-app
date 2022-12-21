@@ -202,6 +202,9 @@ def sample_pose():
 
 def main():
     """Detection posture"""
+    # Select Training screen
+
+    # Start Training
     sample_pose()
 
 
