@@ -11,13 +11,13 @@ from config import constant_list as const
 from training import instructions as ins
 
 
-def putText(image, landmark_x, landmark_y):
-    image_height, image_width, channels = image.shape
+def put_text(image, landmark_x, landmark_y):
+    image_height, image_width, _ = image.shape
     x = int(landmark_x * image_width)
     y = int(landmark_y * image_height)
-    # ランドマーク情報 [x, y, z]のテキストを作成する
+    # Put text
     text = f"[x:{round(landmark_x, 3)}, y:{round(landmark_y, 3)}]"
-    # imageにテキストを埋め込む
+    # print in image
     cv.putText(
         image,
         text,
@@ -62,7 +62,7 @@ def sample_pose():
             image.flags.writeable = True
             image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
 
-            #
+            # Get pose landmarks
             pose_lands = results.pose_landmarks
             pose_pos = mp_pose.PoseLandmark
 
@@ -80,7 +80,7 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putText(image, nose_x, nose_y)
+                put_text(image, nose_x, nose_y)
                 print("Nose:", nose_x, nose_y)
 
                 # Sholders
@@ -110,8 +110,8 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putText(image, left_sholder_x, left_sholder_y)
-                putText(image, right_sholder_x, right_sholder_y)
+                put_text(image, left_sholder_x, left_sholder_y)
+                put_text(image, right_sholder_x, right_sholder_y)
                 print(
                     "Sholder=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
                         left_sholder_x,
@@ -146,11 +146,14 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putText(image, left_hip_x, left_hip_y)
-                putText(image, right_hip_x, right_hip_y)
+                put_text(image, left_hip_x, left_hip_y)
+                put_text(image, right_hip_x, right_hip_y)
                 print(
                     "Hip=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
-                        left_hip_x, left_hip_y, right_hip_x, right_hip_y
+                        left_hip_x,
+                        left_hip_y,
+                        right_hip_x,
+                        right_hip_y
                     )
                 )
 
@@ -179,11 +182,14 @@ def sample_pose():
                     (0, 255, 255),
                     -1,
                 )
-                putText(image, left_knee_x, left_knee_y)
-                putText(image, right_knee_x, right_knee_y)
+                put_text(image, left_knee_x, left_knee_y)
+                put_text(image, right_knee_x, right_knee_y)
                 print(
                     "Hip=LX:{0}, LY:{1}, RX:{2}, RY:{3}".format(
-                        left_knee_x, left_knee_y, right_knee_x, right_knee_y
+                        left_knee_x,
+                        left_knee_y,
+                        right_knee_x,
+                        right_knee_y
                     )
                 )
 
