@@ -6,9 +6,7 @@ Might add training Push-Up, Sit-Up, Others...
 
 import cv2 as cv
 import mediapipe as mp
-import pyttsx3
 from config import constant_list as const
-from training import instructions as ins
 
 
 def put_text(image, landmark_x, landmark_y):
@@ -204,14 +202,7 @@ def sample_pose():
 
 def main():
     """Detection posture"""
-    engine = pyttsx3.init()
-    voices = engine.getProperty("voices")
-    engine.setProperty("rate", const.VOICE_SPEED)
-    engine.setProperty("volume", const.VOICE_VOLUME)
-    engine.setProperty("voice", voices[const.VOICE_NUMBER_OF_JP].id)
-
     sample_pose()
-    ins.instruct_posture(engine, const.BACKWORD_POSTURE)
 
 
 if __name__ == "__main__":
