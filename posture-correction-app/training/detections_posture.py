@@ -1,15 +1,24 @@
-# ToDo class or dataclass
+import cv2 as cv
+import mediapipe as mp
 
-class DetectionsPosture(object):
+
+class ModelLoader:
     """
     Training posture detection for using MediaPipe
     """
 
-    def __init__(self, training_name):
-        pass
+    def __init__(self):
+        """Detections posture settings"""
 
-    def init_mediapipe(self):
-        """Initialize MediaPipe"""
+        # Setting solutions
+        self.mp_pose = mp.solutions.pose
+        self.pose = self.mp_pose(
+            model_complexity=2,
+            min_detection_confidence=0.5,
+            min_tracking_confidence=0.5
+        )
+
+    def detected(self, image):
         pass
 
     def get_nose_points(self):
