@@ -2,16 +2,18 @@ import cv2 as cv
 from config import constant_list as const
 
 
-def put_text(image, points, angle = None):
+def put_text(image, points, angle=None):
     """Coordinate put screan"""
     image_height, image_width, _ = image.shape
-    x = int(points[const.X_COORDINATE] * image_width)
-    y = int(points[const.Y_COORDINATE] * image_height)
+    point_x = points[const.X_COORDINATE]
+    point_y = points[const.Y_COORDINATE]
+    x = int(point_x * image_width)
+    y = int(point_y * image_height)
     # Put text
     if angle is None:
-        text = f"[x:{round(points[0], 3)}, y:{round(points[1], 3)}]"
+        text = f"[x:{round(point_x, 3)}, y:{round(point_y, 3)}]"
     else:
-        text = f"[x:{round(points[0], 3)}, y:{round(points[1], 3)}, angle:{round(angle, 1)}]"
+        text = f"[x:{round(point_x, 3)}, y:{round(point_y, 3)}, angle:{angle}]"
 
     cv.putText(
         image,
@@ -54,6 +56,7 @@ def put_line(image, pt1, pt2, color):
         cv.LINE_4,
         0
     )
+
 
 def logging_points(txt, landmark_x, landmark_y):
     log_txt = f"[{txt}=X:{landmark_x}, Y:{landmark_y}]"
