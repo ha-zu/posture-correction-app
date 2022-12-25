@@ -68,6 +68,7 @@ def train_squat():
             pose_land = mp_pose.PoseLandmark
 
             if landmark is not None:
+
                 right_hip = get_xy_points(landmark[pose_land.RIGHT_HIP])
                 right_knee = get_xy_points(landmark[pose_land.RIGHT_KNEE])
                 right_heel = get_xy_points(landmark[pose_land.RIGHT_HEEL])
@@ -93,6 +94,7 @@ def train_squat():
                 angle = math.degrees(
                     math.atan2(pt1, pt2) - math.atan2(pt3, pt2)
                     )
+
                 if angle < 0:
                     angle += 360
 
@@ -101,8 +103,14 @@ def train_squat():
                 util.put_line(image, right_knee, right_heel, const.COLOR_WHITE)
 
                 ded_line = (right_foot[0], right_foot[1] - 0.2)
+
                 if right_knee_x > right_foot_x:
-                    util.put_line(image, ded_line, right_foot, const.COLOR_RED)
+                    util.put_line(
+                        image,
+                        ded_line,
+                        right_foot,
+                        const.COLOR_RED
+                    )
                 else:
                     util.put_line(
                         image,
@@ -113,13 +121,14 @@ def train_squat():
 
                 predata = [
                     angle,
-                    right_hip[0],
-                    right_hip[1],
-                    right_knee[0],
-                    right_knee[1],
-                    right_foot[0],
-                    right_foot[1],
+                    right_hip[const.X_COORDINATE],
+                    right_hip[const.Y_COORDINATE],
+                    right_knee[const.X_COORDINATE],
+                    right_knee[const.Y_COORDINATE],
+                    right_foot[const.X_COORDINATE],
+                    right_foot[const.Y_COORDINATE],
                 ]
+
                 data.append(predata)
 
                 cv.imshow("test", image)
