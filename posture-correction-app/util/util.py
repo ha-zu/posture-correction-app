@@ -2,14 +2,17 @@ import cv2 as cv
 from config import constant_list as const
 
 
-def put_text(image, landmark_x, landmark_y):
+def put_text(image, points, angle = None):
     """Coordinate put screan"""
     image_height, image_width, _ = image.shape
-    x = int(landmark_x * image_width)
-    y = int(landmark_y * image_height)
+    x = int(points[const.X_COORDINATE] * image_width)
+    y = int(points[const.Y_COORDINATE] * image_height)
     # Put text
-    text = f"[x:{round(landmark_x, 3)}, y:{round(landmark_y, 3)}]"
-    # print in image
+    if angle is None:
+        text = f"[x:{round(points[0], 3)}, y:{round(points[1], 3)}]"
+    else:
+        text = f"[x:{round(points[0], 3)}, y:{round(points[1], 3)}, angle:{round(angle, 1)}]"
+
     cv.putText(
         image,
         text,
@@ -21,17 +24,36 @@ def put_text(image, landmark_x, landmark_y):
         cv.LINE_AA,
     )
 
-def put_points(image, landmark_x, landmark_y):
+
+def put_points(image, points):
     cv.circle(
         image,
         (
-            int(landmark_x * const.VIDEO_FRAME_WIDTH),
-            int(landmark_y * const.VIDEO_FRAME_HEIGHT),
+            int(points[const.X_COORDINATE] * const.VIDEO_FRAME_WIDTH),
+            int(points[const.Y_COORDINATE] * const.VIDEO_FRAME_HEIGHT),
         ),
         7,
         (0, 255, 255),
-        -1,
+        5,
         )
+
+
+def put_line(image, pt1, pt2, color):
+    cv.line(
+        image,
+        (
+            int(pt1[const.X_COORDINATE] * const.VIDEO_FRAME_WIDTH),
+            int(pt1[const.Y_COORDINATE] * const.VIDEO_FRAME_HEIGHT)
+        ),
+        (
+            int(pt2[const.X_COORDINATE] * const.VIDEO_FRAME_WIDTH),
+            int(pt2[const.Y_COORDINATE] * const.VIDEO_FRAME_HEIGHT)
+        ),
+        color,
+        2,
+        cv.LINE_4,
+        0
+    )
 
 def logging_points(txt, landmark_x, landmark_y):
     log_txt = f"[{txt}=X:{landmark_x}, Y:{landmark_y}]"

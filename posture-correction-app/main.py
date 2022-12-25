@@ -5,9 +5,9 @@ Might add training Push-Up, Sit-Up, Others...
 
 from training import training as tr
 
+
 def main():
     """Detection posture"""
-    #sample_pose()
     tr.train_squat()
 
 
