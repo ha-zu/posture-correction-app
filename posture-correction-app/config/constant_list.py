@@ -18,10 +18,11 @@ Y_COORDINATE = 1
 """
 Training detected points
 """
-HEADER = ['Angle', 'Right Hip X', 'Right Hip Y',
-            'Right Knee X', 'Right Knee Y',
-            'Right Foot X', 'Right Foot Y'
-        ]
+HEADER = [
+    'Angle', 'Right Hip X', 'Right Hip Y',
+    'Right Knee X', 'Right Knee Y',
+    'Right Foot X', 'Right Foot Y'
+    ]
 
 """
 Detected connect line and point color
