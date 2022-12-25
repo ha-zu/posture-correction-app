@@ -1,7 +1,8 @@
-import cv2 as cv
-import mediapipe as mp
 import math
 import os
+
+import cv2 as cv
+import mediapipe as mp
 import pandas as pd
 from config import constant_list as const
 from util import util
@@ -13,12 +14,15 @@ def get_xy_points(landmarks):
 
     return (x, y)
 
+
 def get_head_points(landmarks):
     pass
 
+
 def get_traking_landmark(landmarks):
-    # Tra
+    # Traking landmark return
     pass
+
 
 def train_squat():
     wkdir = os.getcwd()
@@ -33,8 +37,14 @@ def train_squat():
         cap = cv.VideoCapture(const.VIDEO_CAMERA_MAC)
         cap.set(cv.CAP_PROP_FRAME_WIDTH, const.VIDEO_FRAME_WIDTH)
         cap.set(cv.CAP_PROP_FRAME_HEIGHT, const.VIDEO_FRAME_HEIGHT)
-        fmt = cv.VideoWriter_fourcc('m', 'p', '4', 'v')
-        writer = cv.VideoWriter(wkdir + '/data/test.mp4', fmt, const.FRAME_RATE, const.VIDEO_SIZE)
+        fmt = cv.VideoWriter_fourcc("m", "p", "4", "v")
+        video_out = wkdir + "/data/test.mp4"
+        writer = cv.VideoWriter(
+            video_out,
+            fmt,
+            const.FRAME_RATE,
+            const.VIDEO_SIZE
+            )
 
         data = []
 
@@ -54,26 +64,35 @@ def train_squat():
             image.flags.writeable = True
             image = cv.cvtColor(image, cv.COLOR_RGB2BGR)
 
-            landmarks = points.pose_landmarks.landmark
-            key_points = mp_pose.PoseLandmark
+            landmark = points.pose_landmarks.landmark
+            pose_land = mp_pose.PoseLandmark
 
-            if landmarks is not None:
-                right_hip = get_xy_points(landmarks[key_points.RIGHT_HIP])
-                right_knee = get_xy_points(landmarks[key_points.RIGHT_KNEE])
-                right_heel = get_xy_points(landmarks[key_points.RIGHT_HEEL])
-                right_foot = get_xy_points(landmarks[key_points.RIGHT_FOOT_INDEX])
+            if landmark is not None:
+                right_hip = get_xy_points(landmark[pose_land.RIGHT_HIP])
+                right_knee = get_xy_points(landmark[pose_land.RIGHT_KNEE])
+                right_heel = get_xy_points(landmark[pose_land.RIGHT_HEEL])
+                right_foot = get_xy_points(
+                    landmark[pose_land.RIGHT_FOOT_INDEX]
+                    )
 
                 util.put_points(image, right_hip)
                 util.put_points(image, right_knee)
                 util.put_points(image, right_heel)
                 util.put_points(image, right_foot)
 
-                right_hip_x, right_hip_y = right_hip[const.X_COORDINATE], right_hip[const.Y_COORDINATE]
-                right_knee_x, right_knee_y = right_knee[const.X_COORDINATE], right_knee[const.Y_COORDINATE]
-                right_heel_x, right_heel_y = right_heel[const.X_COORDINATE], right_heel[const.Y_COORDINATE]
+                right_hip_x = right_hip[const.X_COORDINATE]
+                right_knee_x = right_knee[const.X_COORDINATE]
+                right_knee_y = right_knee[const.Y_COORDINATE]
+                right_heel_x = right_heel[const.X_COORDINATE]
+                right_heel_y = right_heel[const.Y_COORDINATE]
                 right_foot_x = right_foot[const.X_COORDINATE]
 
-                angle = math.degrees(math.atan2(right_heel_x - right_knee_x, right_heel_y - right_knee_y) - math.atan2(right_hip_x - right_knee_x, right_hip_y - right_knee_y))
+                pt1 = right_heel_x - right_knee_x
+                pt2 = right_heel_y - right_knee_y
+                pt3 = right_hip_x - right_knee_x
+                angle = math.degrees(
+                    math.atan2(pt1, pt2) - math.atan2(pt3, pt2)
+                    )
                 if angle < 0:
                     angle += 360
 
@@ -85,12 +104,22 @@ def train_squat():
                 if right_knee_x > right_foot_x:
                     util.put_line(image, ded_line, right_foot, const.COLOR_RED)
                 else:
-                    util.put_line(image, ded_line, right_foot, const.COLOR_GREEN)
+                    util.put_line(
+                        image,
+                        ded_line,
+                        right_foot,
+                        const.COLOR_GREEN
+                    )
 
-                predata = [angle, right_hip[0], right_hip[1],
-                            right_knee[0], right_knee[1],
-                            right_foot[0], right_foot[1]
-                        ]
+                predata = [
+                    angle,
+                    right_hip[0],
+                    right_hip[1],
+                    right_knee[0],
+                    right_knee[1],
+                    right_foot[0],
+                    right_foot[1],
+                ]
                 data.append(predata)
 
                 cv.imshow("test", image)
@@ -100,7 +129,7 @@ def train_squat():
                     break
 
         df = pd.DataFrame(data, columns=const.HEADER)
-        df.to_csv(wkdir + '/data/data.csv')
+        df.to_csv(wkdir + "/data/data.csv")
 
         writer.release()
         cap.release()
